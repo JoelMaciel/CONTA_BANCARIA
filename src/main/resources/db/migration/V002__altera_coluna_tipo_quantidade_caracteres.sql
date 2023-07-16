@@ -1,0 +1,2 @@
+ALTER TABLE transferencia
+CHANGE COLUMN tipo tipo VARCHAR(24) NOT NULL ;

@@ -1,5 +1,6 @@
 package br.com.banco.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Data
@@ -23,7 +25,8 @@ public class Transferencia {
     private Long id;
 
     @Column(nullable = false)
-    private OffsetDateTime dataTransferencia ;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    private LocalDateTime dataTransferencia ;
 
     @Column(nullable = false)
     private BigDecimal valor ;
@@ -34,7 +37,7 @@ public class Transferencia {
     @Column(nullable = false)
     private String nomeOperadorTransacao;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conta_id")
     private Conta conta;
 
