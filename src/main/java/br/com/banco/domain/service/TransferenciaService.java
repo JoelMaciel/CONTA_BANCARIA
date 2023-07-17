@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -25,7 +25,7 @@ public class TransferenciaService {
         return mapearTransferencias(transferencias);
     }
 
-    public List<TransferenciaDTO> obterTransferenciasPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal) {
+    public List<TransferenciaDTO> obterTransferenciasPorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
         List<Transferencia> transferencias = transferenciaRepository.findByDataTransferenciaBetween(dataInicial, dataFinal);
         return mapearTransferencias(transferencias);
     }
@@ -37,8 +37,7 @@ public class TransferenciaService {
     }
 
     public List<TransferenciaDTO> obterTransferenciasPorFiltros(
-            Long idConta, LocalDateTime dataInicial, LocalDateTime dataFinal, String nomeOperadorTransacao) {
-        existeNomeOperadorTransacao(nomeOperadorTransacao);
+            Long idConta, LocalDate dataInicial, LocalDate dataFinal, String nomeOperadorTransacao) {
         if (idConta != null && dataInicial != null && dataFinal != null && nomeOperadorTransacao != null) {
             contaService.buscarContaPorId(idConta);
             List<Transferencia> transferencias = transferenciaRepository.findByContaIdContaAndDataTransferenciaBetweenAndNomeOperadorTransacao(
@@ -84,7 +83,7 @@ public class TransferenciaService {
         return mapearTransferencias(transferencias);
     }
 
-    public BigDecimal calcularSaldoTotalPorPeriodo(Long idConta, LocalDateTime dataInicial, LocalDateTime dataFinal) {
+    public BigDecimal calcularSaldoTotalPorPeriodo(Long idConta, LocalDate dataInicial, LocalDate dataFinal) {
         Conta conta = contaService.buscarContaPorId(idConta);
         List<Transferencia> transferencias = transferenciaRepository.findByDataTransferenciaBetweenAndContaIdConta(dataInicial, dataFinal, idConta);
 

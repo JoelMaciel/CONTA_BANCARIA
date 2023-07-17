@@ -1,11 +1,11 @@
 package br.com.banco.api.dto;
 
 import br.com.banco.domain.model.Transferencia;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -16,7 +16,8 @@ public class TransferenciaDTO {
 
     private Long id;
 
-    private LocalDateTime dataTransferencia ;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dataTransferencia ;
 
     private BigDecimal valor ;
 
