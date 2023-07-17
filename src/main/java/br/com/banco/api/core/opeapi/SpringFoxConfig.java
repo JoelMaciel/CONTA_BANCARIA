@@ -17,6 +17,7 @@ import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.Response;
+import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -44,7 +45,8 @@ public class SpringFoxConfig {
                 .globalResponses(HttpMethod.PUT, globalPostPutResponseMessages())
                 .globalResponses(HttpMethod.PATCH, globalPostPutResponseMessages())
                 .additionalModels(typeResolver.resolve(Problem.class))
-                .apiInfo(apiInfo());
+                .apiInfo(apiInfo())
+                .tags(new Tag("Contas Bancárias", "Informações de contas bancárias"));
 
 
 
