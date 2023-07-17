@@ -1,5 +1,6 @@
 package br.com.banco.api.controller;
 
+import br.com.banco.api.controller.openapi.TransferenciaControllerOpenApi;
 import br.com.banco.api.dto.TransferenciaDTO;
 import br.com.banco.domain.service.TransferenciaService;
 import lombok.RequiredArgsConstructor;
@@ -7,13 +8,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/transferencias")
-public class TransferenciaController {
+public class TransferenciaController implements TransferenciaControllerOpenApi {
 
     private final TransferenciaService transferenciaService;
 
@@ -26,8 +27,8 @@ public class TransferenciaController {
     @GetMapping
     public List<TransferenciaDTO> obterTransferenciasPorFiltros(
             @RequestParam(required = false) Long idConta,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInicial,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFinal,
             @RequestParam(required = false) String nomeOperadorTransacao) {
 
         return transferenciaService.obterTransferenciasPorFiltros(idConta, dataInicial, dataFinal, nomeOperadorTransacao);
@@ -37,8 +38,7 @@ public class TransferenciaController {
     @GetMapping("/{idConta}/saldo")
     public BigDecimal calcularSaldoTotalPorPeriodo(
             @PathVariable Long idConta,
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal) {
+            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInicial, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFinal) {
 
         return transferenciaService.calcularSaldoTotalPorPeriodo(idConta, dataInicial, dataFinal);
     }
