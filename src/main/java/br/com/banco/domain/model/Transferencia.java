@@ -36,7 +36,7 @@ public class Transferencia {
     @Column(nullable = false)
     private String nomeOperadorTransacao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "conta_id")
     private Conta conta;
 
