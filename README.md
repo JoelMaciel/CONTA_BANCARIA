@@ -16,6 +16,7 @@
 - Após isso execute o comando: 
 
                              java -jar <...caminhoParaSeuJar>
+- Se quiser testar a API após o projeto estar rodando, pode acessá-lo por essa url:http://localhost:8080/swagger-ui/index.html
 
 ## Requisitos de sistema
 

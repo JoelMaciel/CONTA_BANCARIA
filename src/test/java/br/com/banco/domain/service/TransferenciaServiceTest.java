@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -29,18 +32,19 @@ public class TransferenciaServiceTest {
 
     @Test
     public void deveRetornarQuantidadeDeTransferenciaDaIdConta2() {
-
-        List<TransferenciaDTO> transferencias = transferenciaService.obterTransferenciasPorConta(2L);
+        Pageable pageable = PageRequest.of(0, 4);
+        Page<TransferenciaDTO> transferenciasPage = transferenciaService.obterTransferenciasPorConta(2L, pageable);
+        List<TransferenciaDTO> transferencias = transferenciasPage.getContent();
 
         assertNotNull(transferencias);
-        assertEquals(6, transferencias.size());
-
+        assertEquals(4, transferencias.size());
     }
 
     @Test
     public void deveRetornarOsDadosCorretosDaPrimeiraTransferenciaDaListaDeIdConta2() {
-
-        List<TransferenciaDTO> transferencias = transferenciaService.obterTransferenciasPorConta(2L);
+        Pageable pageable = PageRequest.of(0, 4);
+        Page<TransferenciaDTO> transferenciasPage = transferenciaService.obterTransferenciasPorConta(2L, pageable);
+        List<TransferenciaDTO> transferencias = transferenciasPage.getContent();
 
         TransferenciaDTO primeiraTransferencia = transferencias.get(0);
 
@@ -52,31 +56,33 @@ public class TransferenciaServiceTest {
         assertThat(primeiraTransferencia.getConta().getIdConta()).isEqualTo(2);
         assertThat(primeiraTransferencia.getConta().getNomeResponsavel()).isEqualTo("Sicrano");
         assertNotNull(transferencias);
-
     }
 
     @Test
     public void deveRetornar404_QuandoInformarIdContaInexistente() {
+        Pageable pageable = PageRequest.of(0, 4);
 
         ContaNaoExisteException expectedError = Assertions.assertThrows(ContaNaoExisteException.class,
                 () -> {
-                    transferenciaService.obterTransferenciasPorConta(3L);
+                    transferenciaService.obterTransferenciasPorConta(3L, pageable);
                 });
+
         assertThat(expectedError).isNotNull();
         assertEquals("Não existe uma conta cadastrada com o Id 3", expectedError.getMessage());
-
     }
 
     @Test
     public void deveRetornarListaDeTransferenciasPorPeriodoInformado() {
+        LocalDate dataInicial = LocalDate.of(2019, 1, 10);
+        LocalDate dataFinal = LocalDate.of(2021, 12, 30);
 
-        List<TransferenciaDTO> transferencias = transferenciaService.obterTransferenciasPorPeriodo(
-                LocalDate.of(2019, 01, 10), LocalDate.of(2021, 12, 30));
+        Pageable pageable = PageRequest.of(0, 4); // Defina a paginação desejada
+
+        Page<TransferenciaDTO> transferenciasPage = transferenciaService.obterTransferenciasPorPeriodo(dataInicial, dataFinal, pageable);
+        List<TransferenciaDTO> transferencias = transferenciasPage.getContent();
 
         assertNotNull(transferencias);
-
     }
-
     @Test
     public void deveCalcularSaldoTotalPorPeriodoCorretamente() {
         Long idConta = 1L;
