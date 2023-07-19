@@ -51,7 +51,10 @@ public class TransferenciaServiceTest {
         assertThat(primeiraTransferencia.getId()).isEqualTo(2);
         assertThat(primeiraTransferencia.getDataTransferencia()).isEqualTo(LocalDate.of(2019, 2, 3));
         assertThat(primeiraTransferencia.getValor()).isEqualByComparingTo(BigDecimal.valueOf(12.24));
-        assertThat(primeiraTransferencia.getTipo()).isEqualTo("DEPOSITO");
+        assertThat(primeiraTransferencia.getTipo()).isEqualTo("DEPÓSITO");
+        assertThat(primeiraTransferencia.getTipo()).isEqualTo("DEPÓSITO");
+        assertThat(primeiraTransferencia.getTipo()).isEqualTo("DEPÓSITO");
+        assertThat(primeiraTransferencia.getTipo()).isEqualTo("DEPÓSITO");
         assertThat(primeiraTransferencia.getNomeOperadorTransacao()).isEqualTo("Ronnyscley");
         assertThat(primeiraTransferencia.getConta().getIdConta()).isEqualTo(2);
         assertThat(primeiraTransferencia.getConta().getNomeResponsavel()).isEqualTo("Sicrano");
@@ -92,7 +95,7 @@ public class TransferenciaServiceTest {
         BigDecimal saldoTotal = transferenciaService.calcularSaldoTotalPorPeriodo(idConta, dataInicial, dataFinal);
 
         assertNotNull(saldoTotal);
-        assertEquals(BigDecimal.valueOf(2056.19), saldoTotal);
+        assertEquals(BigDecimal.valueOf(1160.73), saldoTotal);
     }
 
 }

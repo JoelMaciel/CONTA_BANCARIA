@@ -46,7 +46,8 @@ public class SpringFoxConfig {
                 .globalResponses(HttpMethod.PATCH, globalPostPutResponseMessages())
                 .additionalModels(typeResolver.resolve(Problem.class))
                 .apiInfo(apiInfo())
-                .tags(new Tag("Contas Bancárias", "Informações de contas bancárias"));
+                .tags(new Tag("Contas Bancárias", "Informações de contas bancárias - OBS: Pesquisar " +
+                        "pelos seguintes nomes: Beltrano, Ronnyscley e Sicrano"));
 
 
 
