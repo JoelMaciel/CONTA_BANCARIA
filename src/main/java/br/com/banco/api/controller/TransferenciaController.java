@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -38,16 +37,6 @@ public class TransferenciaController implements TransferenciaControllerOpenApi {
         return transferenciaService.obterTransferenciasPorFiltros(idConta, dataInicial, dataFinal, nomeOperadorTransacao, pageable);
     }
 
-//    @GetMapping
-//    public List<TransferenciaDTO> obterTransferenciasPorFiltros(
-//            @RequestParam(required = false) Long idConta,
-//            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInicial,
-//            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFinal,
-//            @RequestParam(required = false) String nomeOperadorTransacao) {
-//
-//        return transferenciaService.obterTransferenciasPorFiltros(idConta, dataInicial, dataFinal, nomeOperadorTransacao);
-//
-//    }
 
     @GetMapping("/{idConta}/saldo")
     public BigDecimal calcularSaldoTotalPorPeriodo(
