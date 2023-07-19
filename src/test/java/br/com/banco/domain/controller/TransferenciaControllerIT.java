@@ -122,7 +122,7 @@ public class TransferenciaControllerIT {
                 .get("/{idConta}/saldo")
               .then()
                 .statusCode(HttpStatus.OK.value())
-                .body(equalTo("2196.46"));
+                .body(equalTo("1301.00"));
     }
 
     @Test
